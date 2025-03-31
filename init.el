@@ -112,6 +112,30 @@
   ([remap describe-variable] . counsel-describe-variable)
   ([remap describe-key] . helpful-key))
 
-(use-package! nextflow-mode
+(use-package nextflow-mode
   :config
   (set-docsets! 'nextflow-mode "Groovy"))
+
+(use-package material-theme)
+(use-package vundo
+  :bind ("C-ä" .  vundo))
+
+;; Config dark/light mode switcher                                                       
+(use-package heaven-and-hell                                                             
+  :ensure t                                                                              
+  :config                                                                                
+  (setq heaven-and-hell-theme-type 'dark) ;; Omit to use light by default                
+  (setq heaven-and-hell-themes                                                           
+        '((light . material-light)                                                    
+          (dark . doom-gruvbox))) ;; Themes can be the list: (dark . (tsdh-dark wombat)) 
+  ;; Optionall, load themes without asking for confirmation.                             
+  (setq heaven-and-hell-load-theme-no-confirm t)                                         
+  :hook (after-init . heaven-and-hell-init-hook)                                         
+  :bind (("C-c <f6>" . heaven-and-hell-load-default-theme)                               
+         ("<f6>" . heaven-and-hell-toggle-theme)))                                       
+
+
+;; Add col indicator for prog modes. Can probably be speced by mode? 100 is nice tho
+(setq-default display-fill-column-indicator-column 100)
+(add-hook 'prog-mode-hook #'display-fill-column-indicator-mode)
+
