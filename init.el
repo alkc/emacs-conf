@@ -25,6 +25,10 @@
 (require 'use-package)
 (setq use-package-always-ensure t)
 
+;; Not required after emacs 30 <=
+(unless (package-installed-p 'vc-use-package)
+  (package-vc-install "https://github.com/slotThe/vc-use-package"))
+(require 'vc-use-package)
 
 ;; BASIC UI
 
@@ -114,6 +118,7 @@
 
 (use-package nextflow-mode
   :config
+  :vc (:fetcher github :repo edmundmiller/nextflow-mode)
   (set-docsets! 'nextflow-mode "Groovy"))
 
 (use-package material-theme)
